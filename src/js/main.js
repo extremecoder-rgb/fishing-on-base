@@ -1,10 +1,10 @@
-// Main entry point for the Retro Fishing Game
+
 import { Game } from './game.js';
 import { initWeb3, connectWallet, getCurrentAccount } from './web3.js';
 import { initContracts } from './contracts.js';
 import { initUI } from './ui.js';
 
-// Debug logging function
+
 function debugLog(message) {
   console.log(`[Main Debug] ${message}`);
   const debugInfo = document.getElementById('debug-info');
@@ -13,18 +13,18 @@ function debugLog(message) {
   }
 }
 
-// Game state management
+
 let game = null;
 let currentScreen = 'welcome';
 let web3Instance = null;
 let elements = null;
 let screens = null;
 
-// Initialize DOM elements
+
 function initializeElements() {
   debugLog('Initializing DOM elements...');
   
-  // Initialize screens
+  
   screens = {
     welcome: document.getElementById('welcomeScreen'),
     game: document.getElementById('gameScreen'),
@@ -32,7 +32,7 @@ function initializeElements() {
     marketplace: document.getElementById('marketplaceScreen')
   };
 
-  // Initialize elements
+  
   elements = {
     connectWalletBtn: document.getElementById('connectWalletBtn'),
     walletInfo: document.getElementById('wallet-info'),
@@ -45,10 +45,10 @@ function initializeElements() {
     marketplaceContainer: document.getElementById('marketplaceContainer')
   };
 
-  // Debug DOM elements
+  
   debugElements();
 
-  // Check if all required elements exist
+  
   const missingElements = Object.entries(elements)
     .filter(([key, element]) => !element)
     .map(([key]) => key);
@@ -58,7 +58,7 @@ function initializeElements() {
   }
 }
 
-// Debug DOM elements
+
 function debugElements() {
   debugLog('Checking DOM elements...');
   Object.entries(elements).forEach(([key, element]) => {
@@ -69,7 +69,7 @@ function debugElements() {
   });
 }
 
-// Screen management
+
 function showScreen(screenId) {
   debugLog(`Switching to screen: ${screenId}`);
   Object.values(screens).forEach(screen => {
@@ -82,7 +82,7 @@ function showScreen(screenId) {
   }
   currentScreen = screenId;
 
-  // Play or pause welcome music based on screen
+  
   const welcomeMusic = document.getElementById('welcomeMusic');
   if (welcomeMusic) {
     if (screenId === 'welcome') {
@@ -95,16 +95,16 @@ function showScreen(screenId) {
   }
 }
 
-// Initialize game after wallet connection
+
 async function initGame(account, contracts) {
   debugLog('Initializing game...');
   try {
-    // Set canvas size to match container
+   
     const container = elements.gameCanvas.parentElement;
     elements.gameCanvas.width = container.clientWidth;
     elements.gameCanvas.height = container.clientHeight;
 
-    // Create game instance
+   
     game = new Game(elements.gameCanvas, contracts, account);
     
     // Load game assets
@@ -113,13 +113,13 @@ async function initGame(account, contracts) {
       throw new Error('Failed to load game assets');
     }
     
-    // Start the game
+  
     game.start();
     
-    // Show game screen
+   
     showScreen('game');
     
-    // Update UI
+   
     elements.walletInfo.textContent = `${account.slice(0, 6)}...${account.slice(-4)}`;
     
     debugLog('Game initialized successfully');
@@ -130,36 +130,36 @@ async function initGame(account, contracts) {
   }
 }
 
-// Handle caught fish
+
 function handleCaughtFish(fishData) {
   const template = document.getElementById('fishCardTemplate');
   const fishCard = template.content.cloneNode(true);
 
-  // Update fish card with caught fish data
+ 
   fishCard.querySelector('.fish-type').textContent = fishData.type;
   fishCard.querySelector('.fish-weight').textContent = `Weight: ${fishData.weight}kg`;
   fishCard.querySelector('.fish-length').textContent = `Length: ${fishData.length}cm`;
   fishCard.querySelector('.fish-timestamp').textContent = new Date().toLocaleString();
   fishCard.querySelector('.fish-location').textContent = fishData.location;
 
-  // Set fish image
+  
   const fishImage = fishCard.querySelector('.fish-image');
   fishImage.style.backgroundImage = `url(./assets/fish/${fishData.type.toLowerCase()}.svg)`;
 
   elements.inventoryContainer.appendChild(fishCard);
 }
 
-// Event Listeners
+
 async function setupEventListeners(web3) {
   debugLog('Setting up event listeners...');
   web3Instance = web3;
   
-  // Wallet connection
+ 
   if (elements.connectWalletBtn) {
     elements.connectWalletBtn.addEventListener('click', async () => {
       debugLog('Connect wallet button clicked');
       try {
-        // Show loading state
+       
         elements.connectWalletBtn.disabled = true;
         elements.connectWalletBtn.textContent = 'Connecting...';
 
@@ -167,7 +167,7 @@ async function setupEventListeners(web3) {
         const account = await connectWallet();
         debugLog(`Wallet connected: ${account}`);
         
-        // Initialize Web3 first
+       
         debugLog('Initializing Web3...');
         const web3 = await initWeb3();
         if (!web3 || !web3.eth) {
@@ -184,14 +184,14 @@ async function setupEventListeners(web3) {
         console.error('Failed to connect wallet:', error);
         alert(error.message || 'Failed to connect wallet. Please try again.');
       } finally {
-        // Reset button state
+        
         elements.connectWalletBtn.disabled = false;
         elements.connectWalletBtn.textContent = 'Connect Wallet';
       }
     });
   }
 
-  // Navigation
+ 
   if (elements.inventoryBtn) {
     elements.inventoryBtn.addEventListener('click', () => showScreen('inventory'));
   }
@@ -205,7 +205,7 @@ async function setupEventListeners(web3) {
     elements.backFromMarketBtn.addEventListener('click', () => showScreen('game'));
   }
 
-  // Window resize handler
+ 
   window.addEventListener('resize', () => {
     if (game && elements.gameCanvas) {
       const container = elements.gameCanvas.parentElement;
@@ -216,11 +216,11 @@ async function setupEventListeners(web3) {
   });
 }
 
-// Initialize the application
+
 async function init() {
   debugLog('Initializing application...');
   try {
-    // Initialize DOM elements
+    
     initializeElements();
 
     debugLog('Initializing Web3...');
@@ -238,7 +238,7 @@ async function init() {
   }
 }
 
-// Initialize debug info
+
 function initializeDebugInfo() {
   const debugInfo = document.getElementById('debug-info');
   if (debugInfo) {
@@ -255,7 +255,7 @@ function initializeDebugInfo() {
   }
 }
 
-// Add global error handler
+
 window.onerror = function(msg, url, lineNo, columnNo, error) {
   console.error('Global error:', msg, 'at', url, ':', lineNo);
   const debugInfo = document.getElementById('debug-info');
@@ -265,7 +265,7 @@ window.onerror = function(msg, url, lineNo, columnNo, error) {
   return false;
 };
 
-// Start the application when the DOM is loaded
+
 debugLog('Waiting for DOM to load...');
 document.addEventListener('DOMContentLoaded', () => {
   initializeDebugInfo();
@@ -280,30 +280,30 @@ class App {
         this.ui = null;
         this.web3 = null;
         
-        // Initialize the application
+       
         this.init();
     }
     
     async init() {
         try {
-            // Initialize UI
+         
             this.ui = initUI();
             
-            // Initialize Web3 first
+           
             debugLog('Initializing Web3...');
             this.web3 = await initWeb3();
             if (!this.web3 || !this.web3.eth) {
                 throw new Error('Failed to initialize Web3');
             }
             
-            // Initialize contracts with Web3 instance
+           
             debugLog('Initializing contracts...');
             this.contracts = await initContracts(this.web3);
             
-            // Set up event listeners
+           
             this.setupEventListeners();
             
-            // Show welcome screen
+          
             debugLog('Showing welcome screen...');
             this.ui.showScreen('welcome');
             
@@ -314,10 +314,10 @@ class App {
     }
     
     setupEventListeners() {
-        // Connect wallet button
+       
         document.getElementById('connectWalletBtn').addEventListener('click', async () => {
             try {
-                // Show loading state
+                
                 const connectBtn = document.getElementById('connectWalletBtn');
                 connectBtn.disabled = true;
                 connectBtn.textContent = 'Connecting...';
@@ -326,10 +326,10 @@ class App {
                 this.account = await connectWallet();
                 debugLog(`Wallet connected: ${this.account}`);
                 
-                // Initialize game
+              
                 await this.initGame();
                 
-                // Update UI
+             
                 this.ui.updateWalletInfo(this.account);
                 debugLog('Showing game screen...');
                 this.ui.showScreen('game');
@@ -337,20 +337,20 @@ class App {
                 console.error('Failed to connect wallet:', error);
                 this.ui.showError('Failed to connect wallet. Please try again.');
             } finally {
-                // Reset button state
+               
                 const connectBtn = document.getElementById('connectWalletBtn');
                 connectBtn.disabled = false;
                 connectBtn.textContent = 'Connect Wallet';
             }
         });
         
-        // Game navigation buttons
+       
         document.getElementById('inventoryBtn').addEventListener('click', () => this.showInventory());
         document.getElementById('marketplaceBtn').addEventListener('click', () => this.showMarketplace());
         document.getElementById('backToGameBtn').addEventListener('click', () => this.showGame());
         document.getElementById('backFromMarketBtn').addEventListener('click', () => this.showGame());
         
-        // Fish caught event
+      
         window.addEventListener('fishCaught', (event) => this.handleFishCaught(event.detail));
     }
     
@@ -359,17 +359,17 @@ class App {
         const canvas = document.getElementById('gameCanvas');
         this.game = new Game(canvas, this.contracts, this.account);
         
-        // Load assets
+      
         const assetsLoaded = await this.game.loadAssets();
         if (!assetsLoaded) {
             throw new Error('Failed to load game assets');
         }
         
-        // Resize canvas
+      
         this.game.resize();
         window.addEventListener('resize', () => this.game.resize());
         
-        // Start game
+    
         debugLog('Starting game...');
         this.game.start();
     }
@@ -399,15 +399,15 @@ class App {
     }
     
     async handleFishCaught(fishData) {
-        // Update inventory UI
+       
         await this.ui.updateInventory();
         
-        // Show catch notification
+       
         this.ui.showNotification(`Caught a ${fishData.type} fish! Weight: ${fishData.weight}kg, Length: ${fishData.length}cm`);
     }
 }
 
-// Initialize application when DOM is loaded
+
 document.addEventListener('DOMContentLoaded', () => {
     new App();
 });

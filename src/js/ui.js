@@ -1,14 +1,14 @@
 export function initUI() {
     return {
-        // Screen management
+       
         showScreen(screenId) {
             console.log('Showing screen:', screenId);
-            // Hide all screens
+           
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.remove('active');
             });
             
-            // Show requested screen
+           
             const screen = document.getElementById(`${screenId}Screen`);
             if (screen) {
                 screen.classList.add('active');
@@ -18,7 +18,7 @@ export function initUI() {
             }
         },
         
-        // Wallet info
+      
         updateWalletInfo(account) {
             const walletInfo = document.getElementById('wallet-info');
             if (walletInfo) {
@@ -27,19 +27,19 @@ export function initUI() {
             }
         },
         
-        // Inventory management
+       
         async updateInventory() {
             const inventoryContainer = document.getElementById('inventoryContainer');
             if (!inventoryContainer) return;
             
             try {
-                // Get user's fish NFTs
+              
                 const fishNFTs = await this.getUserFishNFTs();
                 
-                // Clear current inventory
+             
                 inventoryContainer.innerHTML = '';
                 
-                // Add fish to inventory
+                
                 fishNFTs.forEach(fish => {
                     const fishElement = this.createFishElement(fish);
                     inventoryContainer.appendChild(fishElement);
@@ -52,7 +52,7 @@ export function initUI() {
         },
         
         async getUserFishNFTs() {
-            // TODO: Implement NFT fetching from smart contract
+           
             return [];
         },
         
@@ -70,7 +70,7 @@ export function initUI() {
                 <button class="sell-btn" data-id="${fish.id}">Sell</button>
             `;
             
-            // Add sell button handler
+           
             const sellBtn = div.querySelector('.sell-btn');
             sellBtn.addEventListener('click', () => this.handleSellFish(fish));
             
@@ -83,13 +83,13 @@ export function initUI() {
             if (!marketplaceContainer) return;
             
             try {
-                // Get listed fish
+                
                 const listedFish = await this.getListedFish();
                 
-                // Clear current listings
+              
                 marketplaceContainer.innerHTML = '';
                 
-                // Add fish to marketplace
+                
                 listedFish.forEach(fish => {
                     const fishElement = this.createMarketplaceFishElement(fish);
                     marketplaceContainer.appendChild(fishElement);
@@ -128,7 +128,7 @@ export function initUI() {
             return div;
         },
         
-        // Notifications
+       
         showNotification(message) {
             const notification = document.createElement('div');
             notification.className = 'notification';
@@ -136,7 +136,7 @@ export function initUI() {
             
             document.body.appendChild(notification);
             
-            // Remove notification after 3 seconds
+            
             setTimeout(() => {
                 notification.remove();
             }, 3000);
@@ -149,13 +149,13 @@ export function initUI() {
             
             document.body.appendChild(error);
             
-            // Remove error after 5 seconds
+            
             setTimeout(() => {
                 error.remove();
             }, 5000);
         },
         
-        // Fish selling
+        
         async handleSellFish(fish) {
             try {
                 // TODO: Implement fish selling logic

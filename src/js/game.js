@@ -1,19 +1,19 @@
-// Game engine for the Retro Fishing Game
+
 import { startFishing } from './contracts.js';
 
-// Game constants
+
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
 const WATER_LEVEL = 400;
 const HOOK_SPEED = 3;
-const FISH_SPAWN_RATE = 0.01; // Probability of fish spawning each frame
-const BITE_DURATION = 1500; // How long a fish stays on the hook in ms
+const FISH_SPAWN_RATE = 0.01; 
+const BITE_DURATION = 1500; 
 const REEL_SPEED = 2;
 const MAX_TENSION = 100;
 const TENSION_INCREASE_RATE = 0.5;
 const TENSION_DECREASE_RATE = 0.3;
 
-// Fish types with their properties
+
 const FISH_TYPES = [
   { name: 'Common', probability: 0.6, minSize: 10, maxSize: 30, speed: 1.5, color: '#6a9ec0' },
   { name: 'Rare', probability: 0.25, minSize: 20, maxSize: 40, speed: 2, color: '#4db6ac' },
@@ -21,7 +21,7 @@ const FISH_TYPES = [
   { name: 'Legendary', probability: 0.03, minSize: 40, maxSize: 60, speed: 3, color: '#ffb74d' }
 ];
 
-// Game states
+
 const GAME_STATES = {
   IDLE: 'idle',
   CASTING: 'casting',
@@ -32,7 +32,7 @@ const GAME_STATES = {
   FAILED: 'failed'
 };
 
-// Time of day settings
+
 const TIME_OF_DAY = {
   MORNING: { name: 'Morning', skyColor: '#87ceeb', biteRateModifier: 1.2 },
   NOON: { name: 'Noon', skyColor: '#4a90e2', biteRateModifier: 1.0 },
@@ -40,7 +40,7 @@ const TIME_OF_DAY = {
   NIGHT: { name: 'Night', skyColor: '#1a237e', biteRateModifier: 0.8 }
 };
 
-// Weather settings
+
 const WEATHER_TYPES = {
   CLEAR: { name: 'Clear', biteRateModifier: 1.0 },
   CLOUDY: { name: 'Cloudy', biteRateModifier: 0.9 },
@@ -48,7 +48,7 @@ const WEATHER_TYPES = {
   STORMY: { name: 'Stormy', biteRateModifier: 0.7 }
 };
 
-// Fishing locations
+
 const LOCATIONS = [
   { name: 'Pixel Pond', background: 'pond_bg.png', fishModifier: 1.0 },
   { name: 'Retro River', background: 'river_bg.png', fishModifier: 1.2 },
@@ -56,9 +56,7 @@ const LOCATIONS = [
   { name: 'NFT Lake', background: 'lake_bg.png', fishModifier: 2.0 }
 ];
 
-/**
- * Game class to handle the fishing game mechanics
- */
+
 export class Game {
   constructor(canvas, contracts, account) {
     this.canvas = canvas;
@@ -66,7 +64,7 @@ export class Game {
     this.contracts = contracts;
     this.account = account;
     
-    // Game state
+   
     this.state = GAME_STATES.IDLE;
     this.score = 0;
     this.fish = [];
@@ -74,7 +72,7 @@ export class Game {
     this.hook = { x: 0, y: 0 };
     this.caughtFish = null;
     
-    // Assets
+    
     this.assets = {
       background: null,
       fishingRod: null,
@@ -85,7 +83,7 @@ export class Game {
       }
     };
     
-    // Fish types and their properties
+    
     this.fishTypes = {
       common: {
         probability: 0.7,
@@ -107,25 +105,23 @@ export class Game {
       }
     };
     
-    // Bind methods
+    
     this.update = this.update.bind(this);
     this.draw = this.draw.bind(this);
     this.gameLoop = this.gameLoop.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    
-    // Add event listeners
     this.canvas.addEventListener('click', this.handleClick);
   }
   
   async loadAssets() {
     try {
-      // Load background
+      
       this.assets.background = await this.loadImage('/assets/backgrounds/pond_bg.svg');
       
-      // Load fishing rod
+    
       this.assets.fishingRod = await this.loadImage('/assets/fishing_rod.svg');
       
-      // Load fish types
+      
       this.assets.fish.common = await this.loadImage('/assets/fish/common.svg');
       this.assets.fish.rare = await this.loadImage('/assets/fish/rare.svg');
       this.assets.fish.legendary = await this.loadImage('/assets/fish/legendary.svg');
@@ -151,7 +147,7 @@ export class Game {
     this.canvas.width = container.clientWidth;
     this.canvas.height = container.clientHeight;
     
-    // Update UI element positions
+   
     const gameUI = document.getElementById('game-ui');
     if (gameUI) {
       gameUI.style.width = `${this.canvas.width}px`;
@@ -168,7 +164,7 @@ export class Game {
   }
   
   spawnFish() {
-    const numFish = Math.floor(Math.random() * 3) + 2; // 2-4 fish
+    const numFish = Math.floor(Math.random() * 3) + 2; 
     
     for (let i = 0; i < numFish; i++) {
       const type = this.getRandomFishType();
@@ -201,22 +197,22 @@ export class Game {
   
   update() {
     if (this.state === GAME_STATES.CASTING) {
-      // Update fish positions
+      
       this.fish.forEach(fish => {
         fish.x += fish.speed * fish.direction;
         
-        // Reverse direction if fish hits the edge
+       
         if (fish.x < 0 || fish.x > this.canvas.width) {
           fish.direction *= -1;
         }
       });
       
-      // Remove fish that swim off screen
+      
       this.fish = this.fish.filter(fish => 
         fish.x > -fish.width && fish.x < this.canvas.width + fish.width
       );
       
-      // Spawn new fish if needed
+      
       if (this.fish.length < 2) {
         this.spawnFish();
       }
@@ -224,15 +220,15 @@ export class Game {
   }
   
   draw() {
-    // Clear canvas
+    
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-    // Draw background
+    
     if (this.assets.background) {
       this.ctx.drawImage(this.assets.background, 0, 0, this.canvas.width, this.canvas.height);
     }
     
-    // Draw fish
+   
     this.fish.forEach(fish => {
       const fishImage = this.assets.fish[fish.type];
       if (fishImage) {
@@ -247,7 +243,7 @@ export class Game {
       }
     });
     
-    // Draw fishing rod if casting
+    
     if (this.state === GAME_STATES.CASTING && this.assets.fishingRod) {
       this.ctx.drawImage(this.assets.fishingRod, this.canvas.width / 2 - 50, 0, 100, 200);
     }
@@ -268,7 +264,7 @@ export class Game {
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
     
-    // Check if clicked on a fish
+    
     const clickedFish = this.fish.find(fish => {
       return x >= fish.x && x <= fish.x + fish.width &&
              y >= fish.y && y <= fish.y + fish.height;
@@ -278,16 +274,16 @@ export class Game {
       this.state = GAME_STATES.CAUGHT;
       this.caughtFish = clickedFish;
       
-      // Remove the caught fish
+      
       this.fish = this.fish.filter(fish => fish !== clickedFish);
       
-      // Add to inventory
+      
       await this.addToInventory(clickedFish);
       
-      // Update score
+      
       this.score += this.fishTypes[clickedFish.type].value;
       
-      // Resume casting after a short delay
+      
       setTimeout(() => {
         this.state = GAME_STATES.CASTING;
         this.caughtFish = null;
@@ -300,20 +296,19 @@ export class Game {
     try {
       console.log('Adding fish to inventory:', fish);
       
-      // Call the smart contract to mint the fish NFT
-      // The contract will generate random fish properties based on the location
+     
       const result = await this.contracts.fishingGameNFT.methods.startFishing(
-        'Pixel Pond' // Using a default location for now
+        'Pixel Pond' 
       ).send({ from: this.account });
       
       console.log('Fish added to inventory:', result);
       
-      // Dispatch event for UI update
+      
       const event = new CustomEvent('fishCaught', {
         detail: {
           type: fish.type,
-          weight: (Math.random() * 5 + 1).toFixed(2), // 1-6 kg
-          length: Math.floor(Math.random() * 50 + 20), // 20-70 cm
+          weight: (Math.random() * 5 + 1).toFixed(2), 
+          length: Math.floor(Math.random() * 50 + 20), 
           location: 'Pixel Pond',
           timestamp: new Date().toISOString()
         }

@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="gameContainer">
-        <!-- Welcome Screen -->
+        
         <div id="welcomeScreen" class="screen active">
             <h1 class="pixel-text">RETRO FISHING</h1>
             <div class="loading-animation">
@@ -19,7 +19,7 @@
             <button id="connectWalletBtn" class="pixel-button">Connect Wallet</button>
         </div>
 
-        <!-- Game Screen -->
+      
         <div id="gameScreen" class="screen">
             <canvas id="gameCanvas"></canvas>
             <div id="game-ui">
@@ -33,21 +33,21 @@
             </div>
         </div>
 
-        <!-- Inventory Screen -->
+        
         <div id="inventoryScreen" class="screen">
             <h2 class="pixel-text">Your Fish Collection</h2>
             <div id="inventoryContainer"></div>
             <button id="backToGameBtn" class="pixel-button">Back to Fishing</button>
         </div>
 
-        <!-- Marketplace Screen -->
+        
         <div id="marketplaceScreen" class="screen">
             <h2 class="pixel-text">Fish Marketplace</h2>
             <div id="marketplaceContainer"></div>
             <button id="backFromMarketBtn" class="pixel-button">Back to Fishing</button>
         </div>
 
-        <!-- Fish Card Template -->
+       
         <template id="fishCardTemplate">
             <div class="fish-card">
                 <div class="fish-image"></div>
@@ -72,7 +72,7 @@
 
     <script type="module" src="js/main.js"></script>
     <script>
-        // Add debug logging
+        
         window.addEventListener('error', function(e) {
             const debugInfo = document.getElementById('debug-info');
             if (debugInfo) {

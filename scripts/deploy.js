@@ -3,13 +3,13 @@ const hre = require("hardhat");
 async function main() {
   console.log("Deploying contracts to", network.name);
 
-  // Deploy FishingGameNFT contract
+  
   const FishingGameNFT = await hre.ethers.getContractFactory("FishingGameNFT");
   const fishingGameNFT = await FishingGameNFT.deploy();
   await fishingGameNFT.deployed();
   console.log("FishingGameNFT deployed to:", fishingGameNFT.address);
 
-  // Deploy FishMarketplace contract
+  
   const FishMarketplace = await hre.ethers.getContractFactory("FishMarketplace");
   const fishMarketplace = await FishMarketplace.deploy(fishingGameNFT.address);
   await fishMarketplace.deployed();
@@ -17,12 +17,12 @@ async function main() {
 
   console.log("Deployment complete!");
 
-  // Wait for block confirmations for verification
+  
   console.log("Waiting for block confirmations...");
   await fishingGameNFT.deployTransaction.wait(5);
   await fishMarketplace.deployTransaction.wait(5);
 
-  // Verify contracts on Etherscan
+  
   console.log("Verifying contracts...");
   try {
     await hre.run("verify:verify", {

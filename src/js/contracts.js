@@ -1,8 +1,6 @@
-// Contract interaction module for the Retro Fishing Game
 
-// Contract addresses
 const CONTRACT_ADDRESSES = {
-  // Base Sepolia testnet
+  
   '84532': {
     fishingGameNFT: '0x4A7Ff7f24f553ed5ec9df7f03893a71C7EC13893',
     fishMarketplace: '0x5ff1F6e18119Af6978D75a1aE21E4350050353af',
@@ -14,14 +12,12 @@ const CONTRACT_ADDRESSES = {
   }
 };
 
-/**
- * Load contract ABIs using fetch API
- */
+
 async function loadContractABIs() {
   try {
     console.log('Loading contract ABIs...');
     
-    // Use fetch to load the ABI JSON files from the abi directory
+    
     const fishingGameResponse = await fetch('../abi/FishingGameNFT.json');
     if (!fishingGameResponse.ok) {
       throw new Error(`Failed to load FishingGameNFT ABI: ${fishingGameResponse.statusText}`);
@@ -32,7 +28,7 @@ async function loadContractABIs() {
       throw new Error(`Failed to load FishMarketplace ABI: ${fishMarketplaceResponse.statusText}`);
     }
     
-    // Parse the JSON responses
+   
     const fishingGameData = await fishingGameResponse.json();
     const fishMarketplaceData = await fishMarketplaceResponse.json();
     
@@ -50,14 +46,12 @@ async function loadContractABIs() {
   }
 }
 
-/**
- * Initialize contract instances
- */
+
 export async function initContracts(web3) {
   try {
     console.log('Initializing contracts...');
     
-    // Check if web3 instance is valid
+   
     if (!web3 || !web3.eth) {
       throw new Error('Invalid Web3 instance. Please ensure Web3 is properly initialized.');
     }
@@ -73,10 +67,10 @@ export async function initContracts(web3) {
     const addresses = CONTRACT_ADDRESSES[chainIdString];
     console.log('Contract addresses:', addresses);
     
-    // Load ABIs using fetch API
+   
     const { fishingGameABI, fishMarketplaceABI } = await loadContractABIs();
 
-    // Initialize contracts with error checking
+  
     let fishingGameNFT;
     let fishMarketplace;
 
@@ -102,7 +96,7 @@ export async function initContracts(web3) {
       throw new Error('Failed to initialize FishMarketplace contract');
     }
 
-    // Verify contract methods
+   
     if (!fishingGameNFT.methods.startFishing) {
       throw new Error('FishingGameNFT contract is missing startFishing method');
     }
@@ -124,8 +118,6 @@ export async function initContracts(web3) {
 
 export async function startFishing() {
   console.log("Starting fishing...");
-  // Implement the logic for starting fishing here
+ 
 }
 
-// The rest of your contract functions (startFishing, getUserFish, etc.)
-// remain the same — no need to change them since they already look good.
