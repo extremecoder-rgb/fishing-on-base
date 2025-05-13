@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fishing Rod - Pixel Art Style -->
+  <g id="rod-idle">
+    <!-- Rod Handle -->
+    <path d="M32 48 L36 48 L36 56 L32 56 Z" fill="#8d6e63"/>
+    <!-- Rod Body -->
+    <path d="M34 20 L34 48" stroke="#795548" stroke-width="2"/>
+    <!-- Rod Tip -->
+    <path d="M34 16 L34 20" stroke="#5d4037" stroke-width="1"/>
+    <!-- Fishing Line -->
+    <path d="M34 16 L34 20 L38 24" stroke="#90a4ae" stroke-width="1" fill="none" opacity="0.6"/>
+    <!-- Reel -->
+    <circle cx="34" cy="44" r="3" fill="#8d6e63"/>
+    <circle cx="34" cy="44" r="1" fill="#5d4037"/>
+  </g>
+  
+  <!-- Casting Animation States -->
+  <g id="rod-casting-1" opacity="0">
+    <use href="#rod-idle" transform="rotate(-30 34 52)"/>
+  </g>
+  <g id="rod-casting-2" opacity="0">
+    <use href="#rod-idle" transform="rotate(-60 34 52)"/>
+  </g>
+  <g id="rod-casting-3" opacity="0">
+    <use href="#rod-idle" transform="rotate(-90 34 52)"/>
+  </g>
+  
+  <!-- Animation Controls -->
+  <animate xlink:href="#rod-idle" attributeName="opacity"
+    values="1;0;0;0;1" dur="1s" begin="cast.begin+0.1s" fill="freeze"/>
+  <animate xlink:href="#rod-casting-1" attributeName="opacity"
+    values="0;1;0;0;0" dur="1s" begin="cast.begin+0.1s" fill="freeze"/>
+  <animate xlink:href="#rod-casting-2" attributeName="opacity"
+    values="0;0;1;0;0" dur="1s" begin="cast.begin+0.1s" fill="freeze"/>
+  <animate xlink:href="#rod-casting-3" attributeName="opacity"
+    values="0;0;0;1;0" dur="1s" begin="cast.begin+0.1s" fill="freeze"/>
+</svg>

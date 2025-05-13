@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Sky -->
+  <rect width="800" height="400" fill="#87CEEB"/>
+  
+  <!-- Ground -->
+  <rect y="400" width="800" height="200" fill="#8B4513"/>
+  
+  <!-- Grass -->
+  <rect y="400" width="800" height="20" fill="#228B22"/>
+  
+  <!-- Water -->
+  <rect y="420" width="800" height="180" fill="#4682B4" opacity="0.7"/>
+  
+  <!-- Water surface effect -->
+  <path d="M0,420 Q200,410 400,420 Q600,430 800,420" stroke="#87CEEB" stroke-width="2" fill="none"/>
+</svg>

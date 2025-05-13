@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Retro River Background -->
+  
+  <!-- Sky -->
+  <rect x="0" y="0" width="800" height="400" fill="#4a90e2"/>
+  
+  <!-- Mountains -->
+  <g id="mountains">
+    <path d="M0 250 L200 50 L400 250 Z" fill="#78909c"/>
+    <path d="M300 250 L500 100 L700 250 Z" fill="#607d8b"/>
+    <path d="M600 250 L800 150 L900 250 Z" fill="#546e7a"/>
+    <!-- Snow Caps -->
+    <path d="M180 80 L200 50 L220 80 Z" fill="#ffffff"/>
+    <path d="M480 120 L500 100 L520 120 Z" fill="#ffffff"/>
+  </g>
+  
+  <!-- Trees on Riverbank -->
+  <g id="riverbank-trees">
+    <!-- Left Bank -->
+    <g transform="translate(50,300)">
+      <path d="M0 0 L20 -40 L40 0 Z" fill="#2e7d32"/>
+      <rect x="15" y="0" width="10" height="20" fill="#4e342e"/>
+    </g>
+    <!-- Right Bank -->
+    <g transform="translate(700,280)">
+      <path d="M0 0 L30 -60 L60 0 Z" fill="#2e7d32"/>
+      <rect x="25" y="0" width="10" height="20" fill="#4e342e"/>
+    </g>
+  </g>
+  
+  <!-- River -->
+  <g id="river">
+    <!-- Main Flow -->
+    <path d="M200 400 C 400 380, 600 420, 800 400 L800 600 L200 600 Z" fill="#1565c0">
+      <animate attributeName="d" 
+        values="M200 400 C 400 380, 600 420, 800 400 L800 600 L200 600 Z;
+                M200 400 C 400 420, 600 380, 800 400 L800 600 L200 600 Z;
+                M200 400 C 400 380, 600 420, 800 400 L800 600 L200 600 Z"
+        dur="3s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- River Current Lines -->
+    <g id="current-lines" stroke="#ffffff" stroke-width="2" opacity="0.3">
+      <path d="M300 450 C 350 440, 400 460, 450 450">
+        <animate attributeName="d"
+          values="M300 450 C 350 440, 400 460, 450 450;
+                  M300 460 C 350 450, 400 470, 450 460;
+                  M300 450 C 350 440, 400 460, 450 450"
+          dur="2s" repeatCount="indefinite"/>
+      </path>
+      <path d="M500 480 C 550 470, 600 490, 650 480">
+        <animate attributeName="d"
+          values="M500 480 C 550 470, 600 490, 650 480;
+                  M500 490 C 550 480, 600 500, 650 490;
+                  M500 480 C 550 470, 600 490, 650 480"
+          dur="2s" repeatCount="indefinite"/>
+      </path>
+    </g>
+  </g>
+  
+  <!-- Riverbank Details -->
+  <g id="riverbank-details">
+    <!-- Left Bank -->
+    <path d="M0 400 L200 400 Q 180 420 160 430 L0 430 Z" fill="#795548"/>
+    <!-- Right Bank -->
+    <path d="M800 400 L600 400 Q 620 420 640 430 L800 430 Z" fill="#795548"/>
+    
+    <!-- Rocks -->
+    <g id="rocks" fill="#616161">
+      <circle cx="180" cy="410" r="8"/>
+      <circle cx="620" cy="415" r="10"/>
+      <circle cx="650" cy="405" r="6"/>
+    </g>
+  </g>
+  
+  <!-- Ambient Animations -->
+  <g id="ambient">
+    <!-- Birds -->
+    <g id="bird" fill="#000000">
+      <path d="M0 0 L5 5 L10 0 L5 2 Z">
+        <animateMotion path="M700,100 C 600,80 500,120 400,100" dur="6s" repeatCount="indefinite"/>
+      </path>
+    </g>
+  </g>
+</svg>

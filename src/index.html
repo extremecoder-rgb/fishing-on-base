@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retro Fishing Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="gameContainer">
+        <!-- Welcome Screen -->
+        <div id="welcomeScreen" class="screen active">
+            <h1 class="pixel-text">RETRO FISHING</h1>
+            <div class="loading-animation">
+                <div class="fish-loader"></div>
+            </div>
+            <p class="pixel-text">Connect wallet to start fishing</p>
+            <button id="connectWalletBtn" class="pixel-button">Connect Wallet</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen">
+            <canvas id="gameCanvas"></canvas>
+            <div id="game-ui">
+                <div id="top-bar">
+                    <div id="wallet-info"></div>
+                    <div id="menu-buttons">
+                        <button id="inventoryBtn" class="pixel-button">Inventory</button>
+                        <button id="marketplaceBtn" class="pixel-button">Marketplace</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inventory Screen -->
+        <div id="inventoryScreen" class="screen">
+            <h2 class="pixel-text">Your Fish Collection</h2>
+            <div id="inventoryContainer"></div>
+            <button id="backToGameBtn" class="pixel-button">Back to Fishing</button>
+        </div>
+
+        <!-- Marketplace Screen -->
+        <div id="marketplaceScreen" class="screen">
+            <h2 class="pixel-text">Fish Marketplace</h2>
+            <div id="marketplaceContainer"></div>
+            <button id="backFromMarketBtn" class="pixel-button">Back to Fishing</button>
+        </div>
+
+        <!-- Fish Card Template -->
+        <template id="fishCardTemplate">
+            <div class="fish-card">
+                <div class="fish-image"></div>
+                <div class="fish-details">
+                    <h3 class="fish-type"></h3>
+                    <p class="fish-weight"></p>
+                    <p class="fish-length"></p>
+                    <p class="fish-timestamp"></p>
+                    <p class="fish-location"></p>
+                </div>
+                <div class="fish-actions">
+                    <button class="sell-fish-button pixel-button">Sell</button>
+                    <button class="release-fish-button pixel-button">Release</button>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <audio id="welcomeMusic" src="assets/retrobg music.mp3" preload="auto"></audio>
+
+    <div id="debug-info"></div>
+
+    <script type="module" src="js/main.js"></script>
+    <script>
+        // Add debug logging
+        window.addEventListener('error', function(e) {
+            const debugInfo = document.getElementById('debug-info');
+            if (debugInfo) {
+                debugInfo.textContent = `Error: ${e.message}`;
+            }
+            console.error('Global error:', e);
+        });
+    </script>
+</body>
+</html> 

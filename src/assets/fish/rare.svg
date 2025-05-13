@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="50" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fish body -->
+    <ellipse cx="50" cy="25" rx="40" ry="20" fill="#9C27B0"/>
+    <!-- Tail -->
+    <path d="M10 25 L0 15 L0 35 Z" fill="#9C27B0"/>
+    <!-- Eye -->
+    <circle cx="65" cy="20" r="3" fill="white"/>
+    <circle cx="65" cy="20" r="1.5" fill="black"/>
+    <!-- Fins -->
+    <path d="M40 15 L30 10 L40 5" fill="#7B1FA2"/>
+    <path d="M40 35 L30 40 L40 45" fill="#7B1FA2"/>
+    <!-- Sparkles -->
+    <circle cx="30" cy="15" r="2" fill="#FFD700"/>
+    <circle cx="45" cy="35" r="2" fill="#FFD700"/>
+    <circle cx="60" cy="10" r="2" fill="#FFD700"/>
+</svg>

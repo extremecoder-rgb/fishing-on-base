@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100" height="50" viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg">
+    <!-- Fish body -->
+    <ellipse cx="50" cy="25" rx="40" ry="20" fill="#FFD700"/>
+    <!-- Tail -->
+    <path d="M10 25 L0 15 L0 35 Z" fill="#FFD700"/>
+    <!-- Eye -->
+    <circle cx="65" cy="20" r="3" fill="white"/>
+    <circle cx="65" cy="20" r="1.5" fill="black"/>
+    <!-- Fins -->
+    <path d="M40 15 L30 10 L40 5" fill="#FFC107"/>
+    <path d="M40 35 L30 40 L40 45" fill="#FFC107"/>
+    <!-- Crown -->
+    <path d="M50 5 L45 15 L55 15 Z" fill="#FFD700"/>
+    <path d="M45 15 L40 25 L50 25 Z" fill="#FFD700"/>
+    <path d="M55 15 L50 25 L60 25 Z" fill="#FFD700"/>
+    <!-- Sparkles -->
+    <circle cx="30" cy="15" r="2" fill="#FFD700"/>
+    <circle cx="45" cy="35" r="2" fill="#FFD700"/>
+    <circle cx="60" cy="10" r="2" fill="#FFD700"/>
+    <!-- Glow effect -->
+    <filter id="glow">
+        <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+        <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+    </filter>
+    <ellipse cx="50" cy="25" rx="45" ry="25" fill="none" stroke="#FFD700" stroke-width="2" filter="url(#glow)"/>
+</svg>
